@@ -23,4 +23,11 @@ public class PostController {
         System.out.println("herer");
         return "/admin/posts";
     }
+
+    @GetMapping("/admin/posts/newposts")
+    public String newPost(Model model){
+        PostDto postDto = new PostDto();
+        model.addAttribute("post", postDto);
+        return "/admin/create_posts";
+    }
 }
