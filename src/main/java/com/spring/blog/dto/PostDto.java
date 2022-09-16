@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,9 +17,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PostDto {
     private Long id;
+    @NotEmpty
     private String title;
     private String url;
+    @NotEmpty
     private String content;
+    @NotEmpty
     private String shortDescription;
     private LocalDateTime createdOn;
     private LocalDateTime modifiedOn;
