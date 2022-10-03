@@ -27,7 +27,6 @@ public class PostController {
     public String posts(Model model){
         List<PostDto> posts = postService.findAllPosts();
         model.addAttribute("posts", posts);
-        System.out.println("herer");
         return "/admin/posts";
     }
 
@@ -55,7 +54,7 @@ public class PostController {
         return "redirect:/admin/posts";
     }
 
-    //Edit method
+    //Update method
     @PostMapping("/admin/posts/{postId}")
     public String updatePost(@PathVariable("postId") Long postId,
                              @Valid @ModelAttribute("post") PostDto post,
@@ -70,10 +69,17 @@ public class PostController {
         return "redirect:/admin/posts";
     }
 
+    //Edit method
     @GetMapping("admin/posts/{postId}/edit")
     public String editPost(@PathVariable("postId") Long postId, Model model){
         PostDto postDto = postService.findPostById(postId);
         model.addAttribute("post", postDto);
         return "admin/edit_post";
+    }
+
+    @GetMapping("admin/posts/{postId}/delete")
+    public String deletePost(@PathVariable("postId") Long postId){
+        postService.deletePost(postId);
+        return "redirect:/admin/posts";
     }
 }
