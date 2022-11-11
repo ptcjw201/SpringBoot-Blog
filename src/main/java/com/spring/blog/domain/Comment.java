@@ -1,15 +1,13 @@
 package com.spring.blog.domain;
 
 import lombok.*;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Getter
 @Setter
@@ -17,24 +15,20 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-@Table(name = "posts")
-public class Post {
-
+@Table(name = "comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String name;
 
-    private String url;
+    @Column(nullable = false)
+    private String email;
 
     @Lob
-    @Column(nullable = false)
     private String content;
-
-    private String shortDescription;
 
     @CreatedDate
     private LocalDateTime createdOn;
@@ -42,6 +36,7 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime modifiedOn;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private Set<Comment> comments = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 }

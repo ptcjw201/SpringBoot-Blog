@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
+
+//@Repository annotation이 필요치 않음
 public interface PostRepository extends JpaRepository<Post, Long> {
     Optional<Post> findByUrl(String url);
     @Query("SELECT p from Post p WHERE " +
