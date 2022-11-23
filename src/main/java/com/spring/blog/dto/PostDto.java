@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
@@ -26,4 +27,5 @@ public class PostDto {
     private String shortDescription;
     private LocalDateTime createdOn;
     private LocalDateTime modifiedOn;
+    private Set<CommentDto> comments;
 }
