@@ -10,6 +10,9 @@ import com.spring.blog.service.CommentService;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -27,5 +30,12 @@ public class CommentServiceImpl implements CommentService {
         Post post = postRepository.findByUrl(postUrl).get();
         comment.setPost(post);
         commentRepository.save(comment);
+    }
+
+    @Override
+    public List<CommentDto> findAllComments() {
+        List<Comment> comments = commentRepository.findAll();
+        return comments.stream().map((comment) -> CommentMapper.mapToCommentDto(comment))
+                .collect(Collectors.toList());
     }
 }

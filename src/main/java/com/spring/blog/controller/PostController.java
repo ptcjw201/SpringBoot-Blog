@@ -1,7 +1,9 @@
 package com.spring.blog.controller;
 
 import com.spring.blog.domain.Post;
+import com.spring.blog.dto.CommentDto;
 import com.spring.blog.dto.PostDto;
+import com.spring.blog.service.CommentService;
 import com.spring.blog.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +18,11 @@ import java.util.Locale;
 @Controller
 public class PostController {
     private PostService postService;
+    private CommentService commentService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/admin/posts")
@@ -26,6 +30,13 @@ public class PostController {
         List<PostDto> posts = postService.findAllPosts();
         model.addAttribute("posts", posts);
         return "/admin/posts";
+    }
+
+    @GetMapping("/admin/posts/comments")
+    public String comments(Model model){
+        List<CommentDto> comments = commentService.findAllComments();
+        model.addAttribute("comments", comments);
+        return "admin/comments";
     }
 
     @GetMapping("/admin/posts/newposts")
